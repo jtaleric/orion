@@ -29,7 +29,7 @@ tests :
       threshold: 10
 
     - name:  serviceReadyLatency
-      metricName: serviceLatencyQuantilesMeasurement
+      metricName: svcLatencyQuantilesMeasurement 
       quantileName: Ready
       metric_of_interest: P99
       not:
@@ -49,6 +49,7 @@ tests :
       labels:
         - "[Jira: Networking / ovn-kubernetes]"
       threshold: 10
+      direction: 1
 
     - name:  ovnkCPU-overall
       metricName : containerCPU
@@ -136,6 +137,8 @@ tests :
         agg_type: avg
       labels:
         - "[Jira: Networking / ovn-kubernetes]"
+      direction: 1
+      threshold: 10
 
     - name:  ovnkMem-overall
       metricName : containerMemory
