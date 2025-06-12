@@ -121,6 +121,8 @@ def cmd_analysis(**kwargs):
     Orion runs on command line mode, and helps in detecting regressions
     """
     level = logging.DEBUG if kwargs["debug"] else logging.INFO
+    if kwargs['output_format'] == cnsts.JSON :
+        level = logging.ERROR
     logger_instance = SingletonLogger(debug=level, name="Orion")
     logger_instance.info("🏹 Starting Orion in command-line mode")
     if len(kwargs["ack"]) > 1 :
@@ -131,8 +133,9 @@ def cmd_analysis(**kwargs):
         logger_instance.error("Terminating test")
         sys.exit(0)
     for test_name, result_table in output.items():
-        print(test_name)
-        print("=" * len(test_name))
+        if kwargs['output_format'] != cnsts.JSON :
+            print(test_name)
+            print("=" * len(test_name))
         print(result_table)
 
         output_file_name = f"{kwargs['save_output_path'].split('.')[0]}_{test_name}.{kwargs['save_output_path'].split('.')[1]}"
