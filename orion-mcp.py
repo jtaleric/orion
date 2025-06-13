@@ -247,12 +247,13 @@ def get_data_source()->str:
     return os.environ.get("ES_SERVER") 
 
 @mcp.tool()
-def openshift_detailed_regression(
+def openshift_detailed_performance(
     version: Annotated[str, Field(description="Version of OpenShift to look into")] = "4.19",
     lookback: Annotated[str, Field(description="Number of days to lookback")] = "15",
 ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
     """
-    Runs a performance regression analysis against the OpenShift using Orion and provides a detailed report.
+    Captures a performance analysis against the specified OpenShift version using Orion 
+    and provides visual report.
 
     Orion uses an EDivisive algorithm to analyze performance data from a specified
     configuration file to detect any performance regressions.
@@ -262,7 +263,7 @@ def openshift_detailed_regression(
         lookback: The number of days to look back for performance data. Defaults to 15 days.
 
     Returns:
-        Returns a string of csv values showing metrics captured for regression analysis.
+        Returns an image or a set of images showing the performance overtime.
     """
     orion_configs = ["/orion/examples/trt-external-payload-cluster-density.yaml",
                      "/orion/examples/trt-external-payload-node-density.yaml",
