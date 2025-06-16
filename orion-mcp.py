@@ -18,7 +18,10 @@ import mcp.types as types
 from typing import Literal, Optional
 from mcp.server.fastmcp import FastMCP, Context
 
-mcp = FastMCP("orion-mcp",log_level='INFO')
+mcp = FastMCP(name="orion-mcp",
+              host="0.0.0.0",
+              port=3030,
+              log_level='INFO')
 
 def run_orion(
     lookback: str,
@@ -335,3 +338,12 @@ def has_openshift_regressed(
         if result.returncode != 0:
             return True
     return False
+
+def main():
+    """
+    Main function to run the MCP server.
+    """
+if __name__ == "__main__":
+    transport="sse"
+    mcp.run(transport=transport)
+    print("Running MCP server with transport:", transport)
